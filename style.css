@@ -1,0 +1,816 @@
+:root {
+    --bg: #100d0a;
+    --panel: #17120d;
+    --gold: #b69e72;
+    --gold-light: #878175;
+    --muted: #d8c3a6;
+    --white: #c9c5bd;
+    --line: rgba(217, 183, 121, .42)
+}
+
+* {
+    box-sizing: border-box
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'Cairo', sans-serif;
+    overflow-x: hidden
+}
+
+body.locked {
+    overflow: hidden
+}
+
+a {
+    color: inherit;
+    text-decoration: none
+}
+
+button {
+    font: inherit;
+    cursor: pointer
+}
+
+.intro {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #100d0a;
+    transition: opacity 1s ease, visibility 1s ease
+}
+
+.intro.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none
+}
+
+.intro-image,
+.hero-backdrop,
+.story-image {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center
+}
+
+.intro-image {
+    background-image: url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=2200&q=90');
+    transform: scale(1.12);
+    animation: cinematicZoom 12s ease-out forwards
+}
+
+.intro-shade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(7, 6, 5, .28), rgba(10, 8, 6, .74)), linear-gradient(0deg, #100d0a 0%, transparent 35%, rgba(10, 8, 6, .18) 100%)
+}
+
+.intro-top,
+.intro-bottom {
+    position: absolute;
+    left: 6vw;
+    right: 6vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--gold-light);
+    letter-spacing: .18em;
+    font-size: 10px
+}
+
+.intro-top {
+    top: 35px
+}
+
+.monogram {
+    font-family: 'Amiri', serif;
+    font-size: 34px;
+    letter-spacing: 0
+}
+
+.monogram i,
+.footer-mark i {
+    font-size: 20px;
+    color: var(--gold);
+    font-style: normal
+}
+
+.intro-bottom {
+    bottom: 32px
+}
+
+.scroll-line {
+    height: 1px;
+    flex: 1;
+    max-width: 120px;
+    background: var(--line);
+    margin: 0 20px
+}
+
+.intro-copy {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 760px;
+    padding: 25px;
+    animation: riseIn 1.5s both
+}
+
+.eyebrow,
+.section-kicker {
+    color: var(--gold);
+    letter-spacing: .16em;
+    font-size: 11px
+}
+
+.intro-copy h1 {
+    font: 400 clamp(44px, 8vw, 92px)/1.25 'Amiri', serif;
+    margin: 24px 0 10px
+}
+
+.intro-copy h1 em,
+.hero h2 em,
+.story-copy h2 em {
+    font-style: normal;
+    color: var(--gold)
+}
+
+.intro-copy p {
+    color: #e0d3c0;
+    font-size: 14px;
+    margin: 12px 0 30px
+}
+
+.gold-button,
+.outline-button {
+    border: 1px solid var(--gold);
+    padding: 13px 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 22px;
+    background: linear-gradient(120deg, #9b8561, #f0dfb9, #88714d);
+    color: #17100a;
+    letter-spacing: .03em;
+    transition: transform .3s, box-shadow .3s
+}
+
+.gold-button:hover,
+.outline-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 35px #d9b77920
+}
+
+.gold-button span {
+    font-size: 18px
+}
+
+.site-header {
+    position: absolute;
+    z-index: 20;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 22px 7%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ffffff10;
+    background: linear-gradient(#0a0806a8, transparent);
+    opacity: 0;
+    transition: opacity .8s
+}
+
+.site-header.visible {
+    opacity: 1
+}
+
+.brand {
+    font: 32px 'Amiri', serif;
+    color: var(--gold)
+}
+
+.brand span {
+    font-size: 20px;
+    margin: 0 5px
+}
+
+.site-header nav {
+    display: flex;
+    gap: 34px;
+    font-size: 12px;
+    color: #eee0c8
+}
+
+.site-header nav a {
+    transition: color .2s
+}
+
+.site-header nav a:hover {
+    color: var(--gold)
+}
+
+.menu-button {
+    display: none;
+    background: none;
+    color: var(--gold);
+    border: 0;
+    font-size: 24px
+}
+
+.hero {
+    position: relative;
+    min-height: 95vh;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    overflow: hidden
+}
+
+.hero-backdrop {
+    background-image: url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=2200&q=90');
+    animation: cinematicZoom 24s ease-in-out infinite alternate
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, var(--bg), transparent 45%, #09070599), radial-gradient(ellipse at center, #160f08a8, transparent 65%)
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    padding: 140px 20px 80px;
+    max-width: 750px
+}
+
+.hero h2,
+.story-copy h2,
+.details-section h2 {
+    font: 400 clamp(40px, 6vw, 72px)/1.35 'Amiri', serif;
+    margin: 24px 0
+}
+
+.hero-content p {
+    color: #e2d5c3;
+    font-size: 14px
+}
+
+.ornament {
+    color: var(--gold);
+    margin: 25px 0;
+    letter-spacing: .1em
+}
+
+.text-link {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 22px;
+    color: var(--gold-light);
+    font-size: 12px
+}
+
+.text-link span {
+    font-size: 22px;
+    animation: float 2s infinite
+}
+
+.hero-index {
+    position: absolute;
+    bottom: 35px;
+    left: 7%;
+    font-size: 12px;
+    color: var(--gold);
+    letter-spacing: .2em
+}
+
+.hero-index span {
+    color: #fff5;
+    margin: 0 8px
+}
+
+.invitation-section {
+    position: relative;
+    text-align: center;
+    padding: 105px 20px 125px;
+    background: radial-gradient(ellipse at 50% 40%, #241a10 0%, #100d0a 62%)
+}
+
+.section-kicker {
+    display: block;
+    margin-bottom: 28px
+}
+
+.invitation-frame {
+    position: relative;
+    max-width: 780px;
+    margin: auto;
+    padding: 70px 8% 65px;
+    border: 1px solid var(--line);
+    outline: 1px solid #d9b77920;
+    outline-offset: 8px;
+    background: linear-gradient(135deg, #17120de8, #0d0b09f5);
+    box-shadow: 0 30px 100px #0008
+}
+
+.invitation-frame:before,
+.invitation-frame:after {
+    content: '✦';
+    position: absolute;
+    color: var(--gold);
+    font-size: 17px;
+    background: var(--bg);
+    padding: 0 10px
+}
+
+.invitation-frame:before {
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%)
+}
+
+.invitation-frame:after {
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%)
+}
+
+.frame-corner {
+    position: absolute;
+    width: 34px;
+    height: 34px;
+    border-color: var(--gold);
+    border-style: solid;
+    opacity: .75
+}
+
+.top-right {
+    top: 12px;
+    right: 12px;
+    border-width: 1px 1px 0 0
+}
+
+.bottom-left {
+    bottom: 12px;
+    left: 12px;
+    border-width: 0 0 1px 1px
+}
+
+.bismillah {
+    font: 28px 'Amiri', serif;
+    color: var(--gold-light);
+    margin: 0 0 20px
+}
+
+.thin-line {
+    width: 90px;
+    height: 1px;
+    background: var(--gold);
+    margin: 0 auto 24px
+}
+
+.invite-intro {
+    font-size: 14px;
+    color: #d9c9b0
+}
+
+.names {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(20px, 6vw, 70px);
+    margin: 45px 0 20px
+}
+
+.names>div {
+    display: flex;
+    flex-direction: column;
+    gap: 8px
+}
+
+.name {
+    font: clamp(43px, 7vw, 70px) 'Amiri', serif;
+    color: var(--gold-light)
+}
+
+.family {
+    font-size: 12px;
+    color: var(--muted)
+}
+
+.ampersand {
+    font: 40px 'Amiri', serif;
+    color: var(--gold)
+}
+
+.invite-poem {
+    font: 22px/1.9 'Amiri', serif;
+    color: #e8d9c2
+}
+
+.date-block {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 38px 0;
+    color: var(--muted);
+    font-size: 13px
+}
+
+.date-block strong {
+    font: 34px 'Amiri', serif;
+    color: var(--gold-light);
+    letter-spacing: .08em
+}
+
+.date-label {
+    color: var(--gold)
+}
+
+.venue {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 9px;
+    font-size: 13px;
+    color: var(--muted)
+}
+
+.pin {
+    font-size: 28px;
+    color: var(--gold)
+}
+
+.venue strong {
+    color: var(--gold-light);
+    font-size: 16px
+}
+
+.outline-button {
+    background: transparent;
+    color: var(--gold-light);
+    padding: 10px 18px;
+    font-size: 12px;
+    margin-top: 15px
+}
+
+.closing {
+    font: 20px/1.9 'Amiri', serif;
+    color: #ddc8a5;
+    margin: 35px 0 0
+}
+
+.closing span {
+    font-size: 26px;
+    color: var(--gold)
+}
+
+.flower {
+    position: absolute;
+    color: #a88750;
+    font-size: 150px;
+    opacity: .12
+}
+
+.flower-left {
+    top: 20px;
+    left: 2%
+}
+
+.story-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 600px;
+    background: #0d0b09
+}
+
+.story-image {
+    position: relative;
+    min-height: 500px;
+    background-image: linear-gradient(#100d0a22, #100d0a55), url('https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&w=1400&q=85');
+    background-position: center
+}
+
+.story-copy {
+    padding: 90px clamp(30px, 7vw, 110px);
+    align-self: center
+}
+
+.story-copy h2 {
+    font-size: clamp(38px, 5vw, 58px)
+}
+
+.story-copy p {
+    font-size: 14px;
+    line-height: 2.3;
+    color: var(--muted);
+    max-width: 440px
+}
+
+.signature {
+    display: block;
+    margin-top: 28px;
+    font: 24px 'Amiri', serif;
+    color: var(--gold)
+}
+
+.details-section {
+    text-align: center;
+    padding: 100px 7% 110px;
+    background: radial-gradient(ellipse at 50% 0, #2a1d10, #100d0a 65%)
+}
+
+.details-section h2 {
+    font-size: 54px;
+    margin: 0 0 50px
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 1000px;
+    margin: auto;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line)
+}
+
+.details-grid article {
+    padding: 38px 15px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 12px
+}
+
+.details-grid article+article {
+    border-right: 1px solid var(--line)
+}
+
+.detail-icon {
+    font-size: 30px;
+    color: var(--gold)
+}
+
+.detail-label,
+.details-grid small {
+    font-size: 12px;
+    color: var(--muted)
+}
+
+.details-grid strong {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--gold-light)
+}
+
+.actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 40px
+}
+
+footer {
+    text-align: center;
+    padding: 48px 20px 35px;
+    border-top: 1px solid #d9b77925;
+    background: #0b0907
+}
+
+.footer-mark {
+    font: 42px 'Amiri', serif;
+    color: var(--gold)
+}
+
+footer p {
+    font: 20px 'Amiri', serif;
+    color: #dfceb3
+}
+
+footer>span {
+    font-size: 10px;
+    letter-spacing: .15em;
+    color: #8f806b
+}
+
+.toast {
+    position: fixed;
+    z-index: 1200;
+    bottom: 25px;
+    left: 50%;
+    transform: translate(-50%, 20px);
+    padding: 12px 20px;
+    background: #dfc18a;
+    color: #17100a;
+    font-size: 13px;
+    opacity: 0;
+    pointer-events: none;
+    transition: .3s
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translate(-50%, 0)
+}
+
+.section-reveal {
+    opacity: 0;
+    transform: translateY(35px);
+    transition: opacity 1s ease, transform 1s ease
+}
+
+.section-reveal.in-view {
+    opacity: 1;
+    transform: translateY(0)
+}
+
+@keyframes cinematicZoom {
+    from {
+        transform: scale(1.1)
+    }
+
+    to {
+        transform: scale(1)
+    }
+}
+
+@keyframes riseIn {
+    from {
+        opacity: 0;
+        transform: translateY(25px)
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0)
+    }
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0)
+    }
+
+    50% {
+        transform: translateY(6px)
+    }
+}
+
+@media(max-width:700px) {
+
+    .intro-top,
+    .intro-bottom {
+        left: 22px;
+        right: 22px
+    }
+
+    .intro-caption,
+    .intro-bottom span:last-child {
+        font-size: 8px
+    }
+
+    .intro-copy h1 {
+        font-size: 48px
+    }
+
+    .site-header {
+        padding: 15px 22px
+    }
+
+    .site-header nav {
+        display: none;
+        position: absolute;
+        top: 70px;
+        right: 18px;
+        left: 18px;
+        padding: 20px;
+        background: #17120df5;
+        border: 1px solid var(--line);
+        flex-direction: column;
+        gap: 20px
+    }
+
+    .site-header nav.open {
+        display: flex
+    }
+
+    .menu-button {
+        display: block
+    }
+
+    .hero {
+        min-height: 85vh
+    }
+
+    .hero h2 {
+        font-size: 46px
+    }
+
+    .invitation-section {
+        padding: 80px 25px
+    }
+
+    .invitation-frame {
+        padding: 55px 7%
+    }
+
+    .names {
+        gap: 16px
+    }
+
+    .name {
+        font-size: 43px
+    }
+
+    .family {
+        font-size: 10px
+    }
+
+    .ampersand {
+        font-size: 28px
+    }
+
+    .invite-intro {
+        font-size: 12px
+    }
+
+    .invite-poem {
+        font-size: 19px
+    }
+
+    .date-block strong {
+        font-size: 29px
+    }
+
+    .story-section {
+        grid-template-columns: 1fr
+    }
+
+    .story-image {
+        min-height: 380px
+    }
+
+    .story-copy {
+        padding: 65px 30px
+    }
+
+    .details-section {
+        padding: 75px 20px
+    }
+
+    .details-section h2 {
+        font-size: 43px
+    }
+
+    .details-grid {
+        grid-template-columns: 1fr
+    }
+
+    .details-grid article {
+        padding: 25px 12px
+    }
+
+    .details-grid article+article {
+        border-right: 0;
+        border-top: 1px solid var(--line)
+    }
+
+    .flower-left {
+        font-size: 90px
+    }
+
+    .gold-button,
+    .outline-button {
+        padding: 12px 17px
+    }
+}
+
+@media(prefers-reduced-motion:reduce) {
+
+    *,
+    *:before,
+    *:after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important
+    }
+}
